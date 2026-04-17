@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conecta 2.0 — KiroLabs</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--vt:#006B3F;--vs:#4CAF50;--vb:#00A651;--vf:#E8F5E9;--am:#FFD700;--ao:#DAA520;--gt:#4A4A4A;--gc:#999;--bg:#F5F7F5;--w:#FFF}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--gt);overflow:hidden;height:100vh;width:100vw}
+.sl{display:none;width:100vw;height:100vh;padding:50px 70px 70px;position:relative;overflow:hidden;background:var(--bg)}
+.sl.a{display:flex;flex-direction:column;justify-content:center}
+.ft{position:absolute;bottom:20px;left:70px;right:70px;display:flex;justify-content:space-between;align-items:center}
+.ft-l{font-size:16px;font-weight:300;color:var(--gc)}.ft-l b{color:var(--ao);font-style:italic}
+.ft-r{font-size:11px;color:var(--gc);font-weight:600;letter-spacing:.5px}
+.nv{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:100}
+.nv button{background:var(--w);border:2px solid var(--vb);color:var(--vb);padding:8px 20px;border-radius:20px;cursor:pointer;font-family:'Inter';font-size:12px;font-weight:600;transition:.3s}
+.nv button:hover{background:var(--vb);color:#fff}
+.pg{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--vt),var(--vb),var(--am));transition:width .5s;z-index:100}
+.sc{position:fixed;top:10px;right:30px;font-size:11px;color:var(--gc);z-index:100}
+.t1{font-size:48px;font-weight:900;color:var(--vt);line-height:1.1;margin-bottom:10px}
+.t2{font-size:20px;font-weight:500;color:var(--vs);margin-bottom:20px}
+.bd{font-size:15px;line-height:1.7;color:var(--gt)}
+.tg{display:inline-block;padding:6px 18px;border-radius:18px;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px}
+.tg-v{background:var(--vf);color:var(--vt);border:1px solid #A5D6A7}
+.tg-a{background:#FFF8E1;color:#F57F17;border:1px solid #FFE082}
+.tg-r{background:#FBE9E7;color:#D32F2F;border:1px solid #FFAB91}
+.tg-g{background:#F5F5F5;color:#616161;border:1px solid #E0E0E0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px}
+.cd{background:var(--w);border:1px solid #E0E0E0;border-radius:10px;padding:20px;transition:.3s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.cd:hover{box-shadow:0 4px 12px rgba(0,107,63,.08);transform:translateY(-1px)}
+.cd h3{font-size:18px;font-weight:700;color:var(--vt);margin-bottom:8px}
+.cd p{font-size:15px;color:var(--gt);line-height:1.6}
+.ci{font-size:24px;margin-bottom:10px}
+.cv{border-left:3px solid var(--vb)}
+.ca{border-left:3px solid var(--am)}
+.oq{font-style:italic;font-size:16px;color:var(--gc);border-left:3px solid var(--vb);padding-left:14px;margin-bottom:20px}
+.tb{width:100%;border-collapse:collapse;font-size:15px;margin-top:12px}
+.tb th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--vb);color:var(--vt);font-weight:700;background:var(--vf);font-size:15px}
+.tb td{padding:9px 12px;border-bottom:1px solid #E8E8E8;font-size:15px}
+.tb tr:hover td{background:#FAFFF5}
+.mr{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #E8E8E8}
+.ml{font-size:17px;color:var(--gt);flex:1}
+.mb{font-size:16px;color:#D32F2F;text-decoration:line-through;flex:.7;text-align:center}
+.ma{font-size:18px;font-weight:700;color:var(--vb);flex:.7;text-align:right}
+.fs{display:flex;align-items:center;gap:12px;padding:8px 0}
+.fn{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0;background:var(--vf);color:var(--vt);border:2px solid var(--vb)}
+.fg{background:#FFF8E1;color:#F57F17;border-color:var(--am)}
+.bn{display:inline-block;background:var(--am);color:#333;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:800;margin-left:4px}
+.bv{background:var(--vt)}.bv .t1,.bv .t2,.bv .bd,.bv .cd h3,.bv .cd p{color:#fff}
+.bv .cd{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
+.bv .oq{color:rgba(255,255,255,.5);border-color:var(--am)}
+.bv .ft-l,.bv .ft-r{color:rgba(255,255,255,.35)}
+@keyframes fi{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.sl.a>*{animation:fi .4s ease forwards}.sl.a>*:nth-child(2){animation-delay:.06s}.sl.a>*:nth-child(3){animation-delay:.12s}.sl.a>*:nth-child(4){animation-delay:.18s}
+</style>
+</head>
+<body>
+<div class="pg" id="pg"></div><div class="sc" id="sc"></div>
+
+<!-- S1: Portada -->
+<div class="sl a bv" id="s1">
+<div style="max-width:750px">
+<div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:20px">Hackathon Conecta 2.0 · Equipo KiroLabs</div>
+<div class="t1" style="font-size:60px;color:#fff">Conecta <span style="color:#FFD700">2.0</span></div>
+<div class="t2" style="color:rgba(255,255,255,.8);font-size:22px;margin-top:10px">De landing page estática a ecosistema de<br><strong style="color:#fff">Open Insurance</strong> de autoservicio</div>
+<div style="margin-top:28px;display:flex;gap:12px">
+<span style="background:rgba(255,255,255,.12);color:#fff;padding:5px 14px;border-radius:18px;font-size:12px;font-weight:600">🔵 Sintonizar</span>
+<span style="background:rgba(255,255,255,.12);color:#fff;padding:5px 14px;border-radius:18px;font-size:12px;font-weight:600">🟢 Solucionar</span>
+<span style="background:rgba(255,255,255,.12);color:#fff;padding:5px 14px;border-radius:18px;font-size:12px;font-weight:600">🟡 Sorprender</span>
+</div></div>
+<div class="ft"><div class="ft-l">onda <b>S</b></div><div class="ft-r">SEGUROS BOLÍVAR · SERVICIOS BOLÍVAR</div></div>
+</div>
+
+<!-- S2: Equipo -->
+<div class="sl" id="s2">
+<div style="text-align:center">
+<div class="t1" style="font-size:40px">Equipo <span style="color:#DAA520">KiroLabs</span></div>
+<div class="t2" style="font-size:15px">Spec-Driven Development con Kiro como eje central</div>
+<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;max-width:850px;margin:0 auto">
+<div class="cd" style="flex:1;min-width:120px;text-align:center;padding:18px 10px"><div style="font-size:26px;margin-bottom:6px">👨‍💻</div><h3 style="font-size:13px">César Benavides</h3></div>
+<div class="cd" style="flex:1;min-width:120px;text-align:center;padding:18px 10px"><div style="font-size:26px;margin-bottom:6px">👨‍💻</div><h3 style="font-size:13px">Felipe Díaz</h3></div>
+<div class="cd" style="flex:1;min-width:120px;text-align:center;padding:18px 10px"><div style="font-size:26px;margin-bottom:6px">👨‍💻</div><h3 style="font-size:13px">Juan Pablo Latorre</h3></div>
+<div class="cd" style="flex:1;min-width:120px;text-align:center;padding:18px 10px"><div style="font-size:26px;margin-bottom:6px">👩‍💻</div><h3 style="font-size:13px">Marcela Duarte</h3></div>
+<div class="cd" style="flex:1;min-width:120px;text-align:center;padding:18px 10px"><div style="font-size:26px;margin-bottom:6px">👩‍💻</div><h3 style="font-size:13px">Sonia Mora</h3></div>
+<div class="cd ca" style="flex:1;min-width:120px;text-align:center;padding:18px 10px"><div style="font-size:26px;margin-bottom:6px">🤖</div><h3 style="font-size:13px;color:#F57F17">Kiro</h3></div>
+</div></div>
+<div class="ft"><div class="ft-l">onda <b>S</b></div><div class="ft-r">SEGUROS BOLÍVAR · SERVICIOS BOLÍVAR</div></div>
+</div>
+
+<!-- S3: Proceso -->
+<div class="sl" id="s3">
+<span class="tg tg-v">🛠️ Proceso Creativo</span>
+<div class="t1" style="font-size:34px">Cómo llegamos al resultado</div>
+<div style="max-width:650px;margin-top:8px">
+<div class="fs"><div class="fn">1</div><div><strong style="font-size:14px">Análisis del reto</strong><br><span style="font-size:12px;color:var(--gc)">Portal actual, dignos rivales (Zurich, Chubb) y alcance oficial</span></div></div>
+<div class="fs"><div class="fn">2</div><div><strong style="font-size:14px">Construcción del requerimiento</strong><br><span style="font-size:12px;color:var(--gc)">14 requisitos con user stories y criterios de aceptación medibles</span></div></div>
+<div class="fs"><div class="fn">3</div><div><strong style="font-size:14px">Diseño de la solución</strong><br><span style="font-size:12px;color:var(--gc)">Arquitectura 3 capas, 8 servicios, modelo de datos, interfaces TypeScript</span></div></div>
+<div class="fs"><div class="fn">4</div><div><strong style="font-size:14px">Creación de tareas</strong><br><span style="font-size:12px;color:var(--gc)">23 tareas modulares asignadas para trabajo paralelo</span></div></div>
+<div class="fs"><div class="fn">5</div><div><strong style="font-size:14px">Ejecución de tareas</strong><br><span style="font-size:12px;color:var(--gc)">Desarrollo colaborativo en GitHub con checkpoints</span></div></div>
+<div class="fs"><div class="fn">6</div><div><strong style="font-size:14px">Refinamiento y ajustes</strong><br><span style="font-size:12px;color:var(--gc)">Integración end-to-end, validación contra criterios de evaluación</span></div></div>
+<div class="fs"><div class="fn fg">7</div><div><strong style="font-size:14px;color:#F57F17">Nuestro MVP</strong><br><span style="font-size:12px;color:var(--gc)">Prototipo funcional: onboarding → catálogo → sandbox → dashboard</span></div></div>
+</div>
+<div class="ft"><div class="ft-l">onda <b>S</b></div><div class="ft-r">SEGUROS BOLÍVAR · SERVICIOS BOLÍVAR</div></div>
+</div>
+
+<!-- S4: El Reto -->
+<div class="sl" id="s4">
+<span class="tg tg-r">🔴 El Reto</span>
+<div class="t1" style="font-size:38px">Transformar la integración de aliados<br>con Seguros Bolívar</div>
+<div class="t2" style="font-size:15px;color:var(--gc);font-weight:400">Hoy, integrar APIs de Seguros Bolívar convierte una integración de horas en semanas.</div>
+<div class="g3">
+<div class="cd"><div class="ci">🌐</div><h3 style="color:#D32F2F">Landing page estática</h3><p>conecta.segurosbolivar.com es solo una página de bienvenida sin catálogo, sin docs, sin sandbox</p></div>
+<div class="cd"><div class="ci">📱</div><h3 style="color:#D32F2F">Acceso manual</h3><p>Pedir credenciales por WhatsApp o email. Esperar días para una respuesta</p></div>
+<div class="cd"><div class="ci">⏳</div><h3 style="color:#D32F2F">Sin pruebas ni monitoreo</h3><p>No hay sandbox para probar antes de producción. No hay dashboard de consumo</p></div>
+</div>
+<div class="ft"><div class="ft-l">onda <b>S</b></div><div class="ft-r">SEGUROS BOLÍVAR · SERVICIOS BOLÍVAR</div></div>
+</div>
+<!-- S5: Sintonizar -->
+<div class="sl" id="s5">
+<span class="tg tg-v">🔵 1. Sintonizar</span>
+<div class="oq">"Nos movemos en red. Estamos atentos y conectados para que las cosas fluyan mejor... Entre todos"</div>
+<div class="t1" style="font-size:32px">Sintonizamos nuestras capacidades<br>con las necesidades de los aliados</div>
+<div class="g3">
+<div class="cd cv"><div class="ci">🤝</div><h3>Onboarding autónomo</h3><p>El aliado se registra solo con verificación de correo corporativo y NIT. Sin intervención humana.</p></div>
+<div class="cd cv"><div class="ci">📚</div><h3>Catálogo conectado</h3><p>7 categorías: Cotización, Emisión, Pagos, Consulta, Identidad/SARLAFT, Modificaciones, Renovaciones.</p></div>
+<div class="cd cv"><div class="ci">⚡</div><h3>Arquitectura moderna</h3><p>React 18 + TypeScript, Node.js + Express, PostgreSQL. Servicios independientes y escalables.</p></div>
+</div>
+<div class="ft"><div class="ft-l">onda <b>S</b></div><div class="ft-r">SEGUROS BOLÍVAR · SERVICIOS BOLÍVAR</div></div>
+</div>
+
+<!-- S6: Solucionar -->
+<div class="sl" id="s6">
+<span class="tg tg-v">🟢 2. Solucionar</span>
+<div class="oq">"Actuamos con agilidad, claridad y enfoque. Servir es hacer que las cosas pasen, de forma simple y a tiempo"</div>
+<div class="t1" style="font-size:30px">Hacemos que las cosas pasen: de semanas a minutos</div>
+<div class="g2">
+<div>
+<div class="cd cv" style="margin-bottom:12px"><h3>🧪 Sandbox aislado</h3><p>Datos realistas, consola interactiva, pruebas inmediatas sin afectar producción</p></div>
+<div class="cd cv" style="margin-bottom:12px"><h3>📊 Dashboard en tiempo real</h3><p>Métricas de consumo, gráficos de tendencia, alertas de cuota</p></div>
+<div class="cd cv"><h3>📋 Snippets listos</h3><p>Código para copiar en JavaScript, Python y cURL</p></div>
+</div>
+<div>
+<div class="cd ca" style="margin-bottom:12px"><h3>🔄 Adaptador Legacy <span class="bn">ÚNICO</span></h3><p>Traduce REST/JSON a SOAP/XML de forma transparente. Menos de 50ms. El sistema legado sigue sin cambios.</p></div>
+<div class="cd cv"><h3>🛡️ Circuit Breaker</h3><p>Se aísla tras 3 errores y se reactiva automáticamente. Estabilidad garantizada.</p></div>
+</div>
+</div>
+<div class="ft"><div class="ft-l">onda <b>S</b></div><div class="ft-r">SEGUROS BOLÍVAR · SERVICIOS BOLÍVAR</div></div>
+</div>
+
+<!-- S7: Sorprender -->
+<div class="sl" id="s7">
+<span class="tg tg-a">🟡 3. Sorprender</span>
+<div class="oq" style="border-color:var(--am)">"Buscamos el detalle, la idea distinta, la experiencia que deja huella. Superamos las expectativas con innovación"</div>
+<div class="t1" style="font-size:30px">Lo que nadie más tiene:<br>superamos a nuestros dignos competidores</div>
+<div class="g3">
+<div class="cd ca"><div class="ci">🤖</div><h3 style="color:#F57F17">IA / Agent Experience <span class="bn">1ros en LATAM</span></h3><p>Endpoint MCP para que agentes de IA descubran y consuman APIs de forma autónoma. Metadatos semánticos x-agent-hints.</p></div>
+<div class="cd ca"><div class="ci">🇨🇴</div><h3 style="color:#F57F17">Regulación colombiana nativa</h3><p>SARLAFT y Habeas Data integrados desde el diseño. Auditoría inmutable con Correlation_ID, retención 90 días.</p></div>
+<div class="cd ca"><div class="ci">🔐</div><h3 style="color:#F57F17">Seguridad B2B</h3><p>Autenticación dual (API Key + OAuth 2.0), rate limiting, cifrado bcrypt, headers de seguridad HTTP.</p></div>
+</div>
+<div class="ft"><div class="ft-l">onda <b>S</b></div><div class="ft-r">SEGUROS BOLÍVAR · SERVICIOS BOLÍVAR</div></div>
+</div>
+
+<!-- S8: Comparativa -->
+<div class="sl" id="s8">
+<span class="tg tg-g">📊 Comparativa</span>
+<div class="t1" style="font-size:30px;margin-bottom:12px">Conecta 2.0 vs el mercado</div>
+<table class="tb">
+<thead><tr><th style="width:26%">Capacidad</th><th style="width:16%">Conecta Actual</th><th style="width:20%;color:var(--vb)">Conecta 2.0</th><th style="width:19%">Zurich Exchange</th><th style="width:19%">Chubb Studio</th></tr></thead>
+<tbody>
+<tr><td>Onboarding autónomo</td><td>❌</td><td style="color:var(--vb);font-weight:700">✅ Self-service</td><td>✅</td><td>✅</td></tr>
+<tr><td>Catálogo filtrable</td><td>❌</td><td style="color:var(--vb);font-weight:700">✅ 7 categorías</td><td>✅</td><td>✅</td></tr>
+<tr><td>Documentación OpenAPI</td><td>❌</td><td style="color:var(--vb);font-weight:700">✅ Interactiva</td><td>✅</td><td>✅</td></tr>
+<tr><td>Sandbox de pruebas</td><td>❌</td><td style="color:var(--vb);font-weight:700">✅ Aislado</td><td>⚠️ Limitado</td><td>✅</td></tr>
+<tr><td>Dashboard consumo</td><td>❌</td><td style="color:var(--vb);font-weight:700">✅ Tiempo real</td><td>✅</td><td>✅</td></tr>
+<tr><td>Adaptador Legacy</td><td>❌</td><td style="color:#F57F17;font-weight:700">✅ SOAP↔REST</td><td>❌</td><td>❌</td></tr>
+<tr><td>IA / MCP</td><td>❌</td><td style="color:#F57F17;font-weight:700">✅ Agent Experience</td><td>❌</td><td>❌</td></tr>
+<tr><td>🇨🇴 Regulación Colombia</td><td>❌</td><td style="color:#F57F17;font-weight:700">✅ SARLAFT nativo</td><td>❌</td><td>❌</td></tr>
+<tr><td>Circuit Breaker</td><td>❌</td><td style="color:var(--vb);font-weight:700">✅</td><td>⚠️ Interno</td><td>⚠️ Interno</td></tr>
+</tbody></table>
+<div style="margin-top:10px;font-size:11px;color:var(--gc)">🟡 Amarillo = Diferenciadores únicos que ningún competidor tiene</div>
+<div class="ft"><div class="ft-l">onda <b>S</b></div><div class="ft-r">SEGUROS BOLÍVAR · SERVICIOS BOLÍVAR</div></div>
+</div>
+
+<!-- S9: Impacto -->
+<div class="sl" id="s9">
+<span class="tg tg-v">🏆 Impacto</span>
+<div class="t1" style="font-size:34px;margin-bottom:20px">Impacto medible: todo con sencillez</div>
+<div style="max-width:650px">
+<div class="mr"><span class="ml">Tiempo de onboarding</span><span class="mb">Días / semanas</span><span class="ma">Minutos</span></div>
+<div class="mr"><span class="ml">Intervención humana</span><span class="mb">100% manual</span><span class="ma">100% autoservicio</span></div>
+<div class="mr"><span class="ml">Pruebas pre-producción</span><span class="mb">No disponible</span><span class="ma">Sandbox aislado</span></div>
+<div class="mr"><span class="ml">Visibilidad de consumo</span><span class="mb">Ninguna</span><span class="ma">Dashboard real-time</span></div>
+<div class="mr"><span class="ml">Soporte para IA</span><span class="mb">No existe</span><span class="ma">MCP endpoint nativo</span></div>
+<div class="mr" style="border:none"><span class="ml">Cumplimiento regulatorio</span><span class="mb">No evidente</span><span class="ma">SARLAFT + Habeas Data</span></div>
+</div>
+<div class="ft"><div class="ft-l">onda <b>S</b></div><div class="ft-r">SEGUROS BOLÍVAR · SERVICIOS BOLÍVAR</div></div>
+</div>
+
+<!-- S10: Cierre -->
+<div class="sl bv" id="s10">
+<div style="max-width:700px;text-align:center;margin:0 auto">
+<div class="t1" style="font-size:44px;color:#fff">Conecta <span style="color:#FFD700">2.0</span></div>
+<div class="t2" style="color:rgba(255,255,255,.8);font-size:18px">No es solo un portal de APIs.<br><br>Es la plataforma que posiciona a <strong style="color:#fff">Seguros Bolívar</strong><br>como líder de <span style="color:#FFD700">Open Insurance</span> en Colombia.</div>
+<div style="margin-top:30px;padding:20px;background:rgba(255,255,255,.08);border-radius:10px;border:1px solid rgba(255,255,255,.15)">
+<div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:6px">Construido con Spec-Driven Development</div>
+<div style="display:flex;justify-content:center;gap:36px;font-size:26px;font-weight:800">
+<div style="color:#fff"><span style="color:#FFD700">14</span> <span style="font-size:12px;font-weight:400;color:rgba(255,255,255,.5)">requisitos</span></div>
+<div style="color:#fff"><span style="color:#4CAF50">23</span> <span style="font-size:12px;font-weight:400;color:rgba(255,255,255,.5)">tareas</span></div>
+<div style="color:#fff"><span style="color:#FFD700">3</span> <span style="font-size:12px;font-weight:400;color:rgba(255,255,255,.5)">pilares Onda S</span></div>
+</div></div>
+<div style="margin-top:24px;display:flex;justify-content:center;gap:12px">
+<span style="background:rgba(255,255,255,.12);color:#fff;padding:5px 14px;border-radius:18px;font-size:12px;font-weight:600">🔵 Sintonizar</span>
+<span style="background:rgba(255,255,255,.12);color:#fff;padding:5px 14px;border-radius:18px;font-size:12px;font-weight:600">🟢 Solucionar</span>
+<span style="background:rgba(255,255,255,.12);color:#fff;padding:5px 14px;border-radius:18px;font-size:12px;font-weight:600">🟡 Sorprender</span>
+</div>
+<div style="margin-top:20px;font-size:14px;color:rgba(255,255,255,.35)">Hackathon Conecta 2.0 · Equipo KiroLabs · 2026</div>
+</div>
+<div class="ft"><div class="ft-l">onda <b>S</b></div><div class="ft-r">SEGUROS BOLÍVAR · SERVICIOS BOLÍVAR</div></div>
+</div>
+
+<!-- Navigation -->
+<div class="nv"><button id="btnPrev" onclick="p()">← Anterior</button><button id="btnNext" onclick="n()">Siguiente →</button></div>
+<script>
+let c=0;const s=document.querySelectorAll('.sl'),t=s.length;
+function updBtn(){
+  const bp=document.getElementById('btnPrev'),bn=document.getElementById('btnNext');
+  bp.style.display=c===0?'none':'inline-block';
+  if(c===t-1){bn.textContent='🚀 Ver Demo';bn.onclick=function(){window.open('http://localhost:5173','_blank')};}
+  else{bn.textContent='Siguiente →';bn.onclick=n;}
+}
+function sh(i){s[c].classList.remove('a');c=(i+t)%t;s[c].classList.add('a');document.getElementById('pg').style.width=((c+1)/t*100)+'%';document.getElementById('sc').textContent=(c+1)+' / '+t;updBtn();}
+function n(){sh(c+1)}function p(){sh(c-1)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();n()}if(e.key==='ArrowLeft'){e.preventDefault();p()}});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?n():p()}});
+document.getElementById('pg').style.width=(1/t*100)+'%';document.getElementById('sc').textContent='1 / '+t;updBtn();
+</script>
+</body>
+</html>
