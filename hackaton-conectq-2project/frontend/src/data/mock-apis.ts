@@ -1,0 +1,138 @@
+import type { ApiDefinition } from '../types';
+
+export const mockApis: ApiDefinition[] = [
+  {
+    id: '1',
+    name: 'Cotización de Seguros',
+    description: 'Permite cotizar seguros de vida, hogar, auto y SOAT en tiempo real. Retorna primas, coberturas y planes disponibles según el perfil del asegurado.',
+    category: 'Cotización',
+    currentVersion: 'v2',
+    status: 'active',
+    tags: ['cotización', 'prima', 'seguro', 'vida', 'hogar', 'auto'],
+    endpoints: [
+      {
+        method: 'POST',
+        path: '/api/v1/quotes',
+        summary: 'Crear cotización',
+        description: 'Genera una nueva cotización de seguro basada en los datos del asegurado y el tipo de producto.',
+        parameters: [],
+        requestBody: {
+          productType: 'auto',
+          insuredData: { documentType: 'CC', documentNumber: '1234567890', birthDate: '1990-05-15' },
+          vehicleData: { plate: 'ABC123', brand: 'Chevrolet', model: 'Spark', year: 2023 },
+        },
+        responseExample: {
+          quoteId: 'QT-2024-001',
+          plans: [
+            { name: 'Básico', monthlyPremium: 85000, coverage: ['Responsabilidad civil', 'Pérdida total'] },
+            { name: 'Plus', monthlyPremium: 145000, coverage: ['Responsabilidad civil', 'Pérdida total', 'Asistencia vial'] },
+          ],
+        },
+      },
+      {
+        method: 'GET',
+        path: '/api/v1/quotes/{quoteId}',
+        summary: 'Consultar cotización',
+        description: 'Obtiene el detalle de una cotización existente por su ID.',
+        parameters: [{ name: 'quoteId', in: 'path', required: true, type: 'string', description: 'ID de la cotización' }],
+        responseExample: { quoteId: 'QT-2024-001', status: 'active', expiresAt: '2024-12-31T23:59:59Z' },
+      },
+    ],
+  },
+  {
+    id: '2',
+    name: 'Emisión de Pólizas',
+    description: 'Emite pólizas de seguro a partir de cotizaciones aprobadas. Genera el documento de póliza y activa la cobertura.',
+    category: 'Emisión',
+    currentVersion: 'v1',
+    status: 'active',
+    tags: ['emisión', 'póliza', 'cobertura', 'activación'],
+    endpoints: [
+      {
+        method: 'POST',
+        path: '/api/v1/policies',
+        summary: 'Emitir póliza',
+        description: 'Crea una nueva póliza a partir de una cotización aprobada.',
+        requestBody: { quoteId: 'QT-2024-001', planSelected: 'Plus', paymentMethod: 'credit_card' },
+        responseExample: { policyId: 'POL-2024-001', status: 'active', startDate: '2024-01-15', endDate: '2025-01-15' },
+      },
+    ],
+  },
+  {
+    id: '3',
+    name: 'Procesamiento de Pagos',
+    description: 'Gestiona pagos de primas, renovaciones y recaudos. Soporta múltiples medios de pago (PSE, tarjeta, débito automático).',
+    category: 'Pagos',
+    currentVersion: 'v1',
+    status: 'active',
+    tags: ['pagos', 'prima', 'PSE', 'tarjeta', 'recaudo'],
+    endpoints: [
+      {
+        method: 'POST',
+        path: '/api/v1/payments',
+        summary: 'Procesar pago',
+        description: 'Procesa un pago de prima o renovación.',
+        requestBody: { policyId: 'POL-2024-001', amount: 145000, method: 'pse', bankCode: '1007' },
+        responseExample: { paymentId: 'PAY-2024-001', status: 'approved', transactionDate: '2024-01-15T10:30:00Z' },
+      },
+    ],
+  },
+  {
+    id: '4',
+    name: 'Consulta de Pólizas',
+    description: 'Permite consultar el estado, coberturas y detalles de pólizas vigentes por número de documento o ID de póliza.',
+    category: 'Consulta',
+    currentVersion: 'v2',
+    status: 'active',
+    tags: ['consulta', 'póliza', 'estado', 'cobertura'],
+    endpoints: [
+      {
+        method: 'GET',
+        path: '/api/v1/policies/{policyId}',
+        summary: 'Consultar póliza',
+        description: 'Obtiene el detalle completo de una póliza.',
+        parameters: [{ name: 'policyId', in: 'path', required: true, type: 'string', description: 'ID de la póliza' }],
+        responseExample: { policyId: 'POL-2024-001', product: 'Auto Plus', status: 'active', insured: { name: 'Juan Pérez' } },
+      },
+    ],
+  },
+  {
+    id: '5',
+    name: 'Verificación SARLAFT',
+    description: 'Valida la identidad del asegurado contra listas restrictivas y bases de datos de prevención de lavado de activos.',
+    category: 'Identidad/SARLAFT',
+    currentVersion: 'v1',
+    status: 'active',
+    tags: ['SARLAFT', 'identidad', 'listas', 'verificación', 'compliance'],
+    endpoints: [
+      {
+        method: 'POST',
+        path: '/api/v1/identity/verify',
+        summary: 'Verificar identidad',
+        description: 'Ejecuta verificación SARLAFT contra listas restrictivas.',
+        requestBody: { documentType: 'CC', documentNumber: '1234567890', fullName: 'Juan Pérez' },
+        responseExample: { verified: true, riskLevel: 'low', lists: [], verifiedAt: '2024-01-15T10:30:00Z' },
+      },
+    ],
+  },
+  {
+    id: '6',
+    name: 'Modificaciones de Póliza',
+    description: 'Permite modificar coberturas, beneficiarios y datos de pólizas vigentes sin necesidad de re-emisión.',
+    category: 'Modificaciones',
+    currentVersion: 'v1',
+    status: 'deprecated',
+    tags: ['modificación', 'endoso', 'beneficiario', 'cobertura'],
+    endpoints: [
+      {
+        method: 'PATCH',
+        path: '/api/v1/policies/{policyId}/endorsements',
+        summary: 'Crear endoso',
+        description: 'Aplica una modificación (endoso) a una póliza vigente.',
+        parameters: [{ name: 'policyId', in: 'path', required: true, type: 'string', description: 'ID de la póliza' }],
+        requestBody: { type: 'beneficiary_change', newBeneficiary: { name: 'María López', relationship: 'spouse' } },
+        responseExample: { endorsementId: 'END-2024-001', status: 'applied', effectiveDate: '2024-02-01' },
+      },
+    ],
+  },
+];
